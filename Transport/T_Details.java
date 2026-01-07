@@ -3,12 +3,18 @@ import java.util.Scanner;
 
 
 public class T_Details implements Bus, Train{
+
+    public static int travel_id;
     private String starting_location;
     private String destination_location;
     private double distance_in_KM;
     private int type_of_transport; // 1 for Bus, 2 for Train
-
-
+    
+    private String[] store_StartingLocations = new String[100];
+    private String[] store_DestinationLocations = new String[100];
+    private double[] store_Distances = new double[100];
+    public int[] store_travelIDs = new int[100];
+    
     
     // Getters and Setters
     public int getType_of_transport() {
@@ -18,6 +24,24 @@ public class T_Details implements Bus, Train{
         this.type_of_transport = type_of_transport;
     }
 
+    public String[] getStore_StartingLocations() {
+        return store_StartingLocations;
+    }
+    public void setStore_StartingLocations(String[] store_StartingLocations) {
+        this.store_StartingLocations = store_StartingLocations;
+    }
+    public String[] getStore_DestinationLocations() {
+        return store_DestinationLocations;
+    }
+    public void setStore_DestinationLocations(String[] store_DestinationLocations) {
+        this.store_DestinationLocations = store_DestinationLocations;
+    }
+    public double[] getStore_Distances() {
+        return store_Distances;
+    }
+    public void setStore_Distances(double[] store_Distances) {
+        this.store_Distances = store_Distances;
+    }
     public String getStarting_location() {
         return starting_location;
     }
@@ -56,6 +80,7 @@ public class T_Details implements Bus, Train{
         this.destination_location = "";
         this.distance_in_KM = 0.0;
         this.type_of_transport = 0;
+        this.travel_id = 0;
     }
     
 
@@ -63,16 +88,19 @@ public class T_Details implements Bus, Train{
     public void getT_Details(){
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("Starting Location: " );
+        System.out.print("Starting Location: " );
         starting_location = sc.nextLine();
-
-        System.out.println("Destination Location: " );
-        destination_location = sc.nextLine();
         
-        System.out.println("Distance in KM: " );
-        distance_in_KM = sc.nextDouble();
 
-        System.out.println("Type of Transport (1 for Bus, 2 for Train): " );
+        System.out.print("Destination Location: " );
+        destination_location = sc.nextLine();
+        store_DestinationLocations[0] = destination_location;   
+        
+        System.out.print("Distance in KM: " );
+        distance_in_KM = sc.nextDouble();
+        store_Distances[0] = distance_in_KM;
+
+        System.out.print("Type of Transport (1 for Bus, 2 for Train): " );
         type_of_transport = sc.nextInt();
 
     }
@@ -81,17 +109,25 @@ public class T_Details implements Bus, Train{
     public void displayT_Details(){
         System.out.println("Starting Location: " + starting_location);
         System.out.println("Destination Location: " + destination_location);
-        System.out.println("Distance in KM: " + distance_in_KM);
+        System.out.println("Distance in KM: " + distance_in_KM + " KM");
         if(type_of_transport==1){
             System.out.println("Type of Transport: Bus");
-            System.out.println("Fare per KM: " + busFinal_fare());
+            System.out.println("Total Fare: " + busFinal_fare());
         }
         else if(type_of_transport==2){
             System.out.println("Type of Transport: Train");
-            System.out.println("Fare per KM: " + trainFinal_fare());
+            System.out.println("Total Fare: " + trainFinal_fare());
         }
     }
 
+    public void displayTravelHistory(){
+        for(int i=0; i<=travel_id; i++){
+            System.out.println("Travel ID: " + store_travelIDs[i]);
+            System.out.println("From: " + store_StartingLocations[i] + " To: " + store_DestinationLocations[i]);
+            System.out.println("Distance: " + store_Distances[i] + " KM");
+            System.out.println();
+        }
+    }
 
 }
 
