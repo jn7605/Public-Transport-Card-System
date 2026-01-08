@@ -9,7 +9,6 @@ public class card {
     private String owner_name;
     private String owner_contact;
     private int switchTransportMode;
-    private boolean canTransport;
 
     public card(int iD, double balance, String owner_name, String owner_contact) {
         ID = 1;
@@ -17,7 +16,6 @@ public class card {
         this.owner_name = "Anuja Wanigasekara";
         this.owner_contact = "0776253447";
         switchTransportMode = 0;
-        canTransport = true;
     }
 
     T_Details[] passenger__1 = new T_Details[100];
@@ -73,14 +71,15 @@ public class card {
             if(this.getBalance()<passenger__1[0].trainFinal_fare()){
                 System.out.println("Your balance is not enough to go by bus or train. Please recharge your card.");
                 System.out.println("Your current balance is "+ this.balance);
-                canTransport = false;
                 break;
             }
 
         }while(switchTransportMode==1);
 
+        System.out.println("---------------------------------------------");
     }
     
+    //this is called inside checkBalance() method
     public void calculateAfter_balance(){
         if(passenger__1[0].getType_of_transport() == 1){
             
@@ -101,11 +100,12 @@ public class card {
     }
 
     public void rechargeCard(double amount){
-        this.balance = this.balance + amount;
         System.out.println("Your card is recharged by "+ amount);
+        this.balance = this.balance + amount;
         System.out.println("Your current balance is "+ this.balance);
     }
 
+    //this is called inside checkBalance() method
     public void loadTo_TravelHistory(){
         passenger__1[0].setStore_StartingLocations(passenger__1[0].getStore_StartingLocations());
         passenger__1[0].setStore_DestinationLocations(passenger__1[0].getStore_DestinationLocations());

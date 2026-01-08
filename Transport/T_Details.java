@@ -1,4 +1,5 @@
 package Transport;
+import java.nio.channels.Pipe.SourceChannel;
 import java.util.Scanner;
 
 
@@ -9,6 +10,8 @@ public class T_Details implements Bus, Train{
     private String destination_location;
     private double distance_in_KM;
     private int type_of_transport; // 1 for Bus, 2 for Train
+    private String travelHistory;
+    private final int attempt_travelHistory = 3;
     
     private String[] store_StartingLocations = new String[100];
     private String[] store_DestinationLocations = new String[100];
@@ -81,12 +84,20 @@ public class T_Details implements Bus, Train{
         this.distance_in_KM = 0.0;
         this.type_of_transport = 0;
         this.travel_id = 0;
+        this.travelHistory = "";
     }
     
+    public void intro(){
+        System.out.println("----- Public Transport Card System -----");
+        System.out.println("In every " + attempt_travelHistory + " travels, you can check your travel history.");
+        System.out.println("----------------------------------------");
+        System.out.println();
+    }
 
     //Get the details from user
     public void getT_Details(){
 
+        System.out.println("Please enter your travel details below:");
         Scanner sc = new Scanner(System.in);
         System.out.print("Starting Location: " );
         starting_location = sc.nextLine();
@@ -103,10 +114,13 @@ public class T_Details implements Bus, Train{
         System.out.print("Type of Transport (1 for Bus, 2 for Train): " );
         type_of_transport = sc.nextInt();
 
+        System.out.println("Thank you! Your travel details have been recorded.");
+
     }
 
     //Display the details that user has entered
     public void displayT_Details(){
+        System.out.println("----- Your entered Travel Details -----");
         System.out.println("Starting Location: " + starting_location);
         System.out.println("Destination Location: " + destination_location);
         System.out.println("Distance in KM: " + distance_in_KM + " KM");
@@ -118,6 +132,8 @@ public class T_Details implements Bus, Train{
             System.out.println("Type of Transport: Train");
             System.out.println("Total Fare: " + trainFinal_fare());
         }
+
+        System.out.println("---------------------------------------");
     }
 
     public void displayTravelHistory(){
@@ -128,6 +144,30 @@ public class T_Details implements Bus, Train{
             System.out.println();
         }
     }
+
+
+    public void ifAdmin(){
+        System.out.println();
+        System.out.println("If you are an admin please enter HISTORY to access admin panel. If not, please enter EXIT.");
+        Scanner sc = new Scanner(System.in);
+        travelHistory = sc.nextLine();
+        if(travelHistory.equals("HISTORY") && this.travel_id>0){
+            System.out.println("---------------------------------");
+            System.out.println("Welcome to the admin panel.");
+            System.out.println("---------- Here is the travel history of particular user ---------");
+            this.displayTravelHistory();
+
+        }else if (travelHistory.equals("EXIT") && this.travel_id>0 ) {
+            System.out.println("Leaving admin panel. Thank you!");
+        }else if(this.travel_id == (0)){
+            System.out.println("No travel history available.");
+        }else{
+            System.out.println("You have not entered command correctly.");
+            
+        }
+
+    }
+
 
 }
 
