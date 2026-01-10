@@ -14,12 +14,17 @@ public class T_Details implements Bus, Train{
     private final int attempt_travelHistory = 3;
     
     private String[] store_StartingLocations = new String[100];
+    
     private String[] store_DestinationLocations = new String[100];
     private double[] store_Distances = new double[100];
     public int[] store_travelIDs = new int[100];
     
     
     // Getters and Setters
+    public int getAttempt_travelHistory() {
+        return attempt_travelHistory;
+    }
+
     public int getType_of_transport() {
         return type_of_transport;
     }
@@ -88,6 +93,10 @@ public class T_Details implements Bus, Train{
     }
     
     public void intro(){
+
+        System.out.println();
+        System.out.println("----------------------------------------");
+        System.out.println("----------------------------------------");
         System.out.println("----- Public Transport Card System -----");
         System.out.println("In every " + attempt_travelHistory + " travels, you can check your travel history.");
         System.out.println("----------------------------------------");
@@ -120,6 +129,7 @@ public class T_Details implements Bus, Train{
 
     //Display the details that user has entered
     public void displayT_Details(){
+        System.out.println();
         System.out.println("----- Your entered Travel Details -----");
         System.out.println("Starting Location: " + starting_location);
         System.out.println("Destination Location: " + destination_location);

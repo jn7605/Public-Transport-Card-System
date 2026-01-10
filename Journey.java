@@ -13,9 +13,11 @@ public class Journey {
         for(int i=0; i<100; i++){
             for(int j=0; j<3; j++){
                 passenger__2[i] = new T_Details();
+                card__1[i] = new card();
                 passenger__2[i].intro();
                 passenger__2[i].getT_Details();
                 passenger__2[i].displayT_Details();
+                card__1[i].setPassenger(passenger__2[i]);
                 card__1[i].checkBalance();
                 i++;
             }
@@ -23,6 +25,5 @@ public class Journey {
         }
 
     }
-
-
+    
 }
