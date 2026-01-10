@@ -10,11 +10,11 @@ public class card {
     private String owner_contact;
     private int switchTransportMode;
 
-    public card(int iD, double balance, String owner_name, String owner_contact) {
-        ID = 1;
+    public card() {
+        this.ID = 1;
         this.balance = 2000;
-        this.owner_name = "Anuja Wanigasekara";
-        this.owner_contact = "0776253447";
+        this.owner_name = "";
+        this.owner_contact = "";
         switchTransportMode = 0;
     }
 
@@ -45,6 +45,10 @@ public class card {
         this.owner_contact = owner_contact;
     }
 
+    public void setPassenger(T_Details passenger){
+        this.passenger__1[0] = passenger;
+    }
+
     public void checkBalance() {
 
         do {
@@ -71,12 +75,21 @@ public class card {
             if(this.getBalance()<passenger__1[0].trainFinal_fare()){
                 System.out.println("Your balance is not enough to go by bus or train. Please recharge your card.");
                 System.out.println("Your current balance is "+ this.balance);
-                break;
-            }
+                System.out.println("If you want recharge your card, please enter R:");
+                Scanner sc = new Scanner(System.in);
+                String rechargeOption = sc.nextLine();
+                if(rechargeOption.equalsIgnoreCase("R")){
+                    System.out.print("Please enter the amount to recharge: ");
+                    double amount = sc.nextDouble();
+                    rechargeCard(amount);
+                    break;
+                }
 
+            }
         }while(switchTransportMode==1);
 
         System.out.println("---------------------------------------------");
+
     }
     
     //this is called inside checkBalance() method
@@ -114,3 +127,4 @@ public class card {
 
     
 }
+
